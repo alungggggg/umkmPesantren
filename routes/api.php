@@ -28,6 +28,9 @@ Route::get("/umkm", [umkmController::class, "get"]);
 Route::delete("/umkm", [umkmController::class, "delete"]);
 Route::get("/umkm/{id}", [umkmController::class, "getById"]);
 Route::post("/umkm/{id}", [umkmController::class, "update"]);
+Route::get("/umkm/category/minuman", [umkmController::class, "getAllMinuman"]);
+Route::get("/umkm/category/jasa", [umkmController::class, "getAllJasa"]);
+Route::get("/umkm/category/makanan", [umkmController::class, "getAllMakanan"]);
 
 
 // daftarMenu foreign key umkm
@@ -37,4 +40,3 @@ Route::post('/menu', [menuController::class, "create"]);
 Route::delete('/menu', [menuController::class, "delete"]);
 Route::get('/menu/{id}', [menuController::class, "getById"]);
 Route::post('/menu/{id}', [menuController::class, "update"]);
-

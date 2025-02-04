@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\File;
 
 class umkmController extends Controller
 {
+
+    public function getAllMakanan(){
+        return response()->json(umkmModel::where('category', 'makanan')->get()); 
+    }
+
+    public function getAllJasa(){
+        return response()->json(umkmModel::where('category', 'jasa')->get()); 
+    }
+    
+    public function getAllMinuman(){
+        return response()->json(umkmModel::where('category', 'minuman')->get()); 
+        
+    }
     public function create(Request $request){
         try{
 
@@ -40,7 +53,7 @@ class umkmController extends Controller
     //
     public function get(){
         try{
-            $data = umkmModel::all();
+            $data = umkmModel::all()->random();
             return response()->json($data, 200);
         }catch(\Exception $e){
             return response()->json([
@@ -51,7 +64,7 @@ class umkmController extends Controller
 
     public function getById($id){
         try{
-            $data = umkmModel::find($id);
+            $data = umkmModel::find($id)->with("menu")->first();
             
             if(!$data){
                 return response()->json(["message" => "UMKM not found"], 404);
@@ -119,7 +132,7 @@ class umkmController extends Controller
 
     public function menuUmkm($id){
         try{
-            return response()->json(umkmModel::find($id)->menu,200); 
+            return response()->json(umkmModel::find($id)->with("menu"),200); 
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Internal Server Error: ' . $e->getMessage() ,

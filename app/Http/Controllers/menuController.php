@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\menuModel;
+use App\Models\umkmModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class menuController extends Controller
 {
+
+    
     //
     public function get(){
         try{
-            
-            return response()->json(menuModel::all(), 200);
+            return response()->json(menuModel::all()->random(), 200);
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Internal Server Error: ' . $e->getMessage() ,
@@ -30,7 +32,8 @@ class menuController extends Controller
             menuModel::create([
                 "umkm_id" => $request->umkm_id,
                 "namaMakanan" => $request->namaMakanan,
-                "image" => $destinationPath . $imageName
+                "image" => $destinationPath . $imageName,
+                "harga" => $request->harga,
             ]);
             
             return response()->json(["message" => "menu successfully created"], 200);
@@ -59,6 +62,7 @@ class menuController extends Controller
             }
             $data->umkm_id = $request->umkm_id;
             $data->namaMakanan = $request->namaMakanan;
+            $data->harga = $request->harga;
 
             $data->save();
 
