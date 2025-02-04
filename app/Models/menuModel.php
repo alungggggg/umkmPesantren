@@ -14,5 +14,6 @@ class menuModel extends Model
         'umkm_id',
         'namaMakanan',
         'image',
+        'harga',
     ];
 }
