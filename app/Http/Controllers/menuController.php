@@ -33,6 +33,7 @@ class menuController extends Controller
                 "umkm_id" => $request->umkm_id,
                 "namaMakanan" => $request->namaMakanan,
                 "image" => $destinationPath . $imageName,
+                "category" => $request->category,
                 "harga" => $request->harga,
             ]);
             
@@ -62,6 +63,7 @@ class menuController extends Controller
             }
             $data->umkm_id = $request->umkm_id;
             $data->namaMakanan = $request->namaMakanan;
+            $data->category = $request->category;
             $data->harga = $request->harga;
 
             $data->save();
