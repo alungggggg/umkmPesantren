@@ -6,6 +6,7 @@ use App\Models\menuModel;
 use App\Models\umkmModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use PDO;
 
 class menuController extends Controller
 {
@@ -20,6 +21,17 @@ class menuController extends Controller
                 'message' => 'Internal Server Error: ' . $e->getMessage() ,
             ], 500); 
         }
+    }
+
+    public function getMakan(){
+        return response()->json(menuModel::where('category', 'makanan')->inRandomOrder()->get(), 200);
+    }
+
+    public function getMinum(){
+        return response()->json(menuModel::where('category', 'minuman')->inRandomOrder()->get(), 200);
+    }
+    public function getJasa(){
+        return response()->json(menuModel::where('category', 'jasa')->inRandomOrder()->get(), 200);
     }
 
     public function create(Request $request){
@@ -93,9 +105,9 @@ class menuController extends Controller
         }
     }
 
-    public function getById(Request $request){
+    public function getById($id){
         try{
-            $data = menuModel::find($request->id);
+            $data = menuModel::find($id);
             if(!$data){
                 return response()->json(["message" => "menu not found"], 404);
             }

@@ -25,6 +25,6 @@ class umkmModel extends Model
 
     public function menu(): HasMany
     {
-        return $this->hasMany(menuModel::class, "umkm_id");
+        return $this->hasMany(menuModel::class, "umkm_id", "id");
     }
 }

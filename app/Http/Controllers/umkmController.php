@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\menuModel;
 use App\Models\umkmModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -10,15 +11,15 @@ class umkmController extends Controller
 {
 
     public function getAllMakanan(){
-        return response()->json(umkmModel::where('category', 'makanan')->get()); 
+        return response()->json(menuModel::inRandomOrder()->where('category', 'makanan')->get()); 
     }
 
     public function getAllJasa(){
-        return response()->json(umkmModel::where('category', 'jasa')->get()); 
+        return response()->json(menuModel::inRandomOrder()->where('category', 'jasa')->get()); 
     }
     
     public function getAllMinuman(){
-        return response()->json(umkmModel::where('category', 'minuman')->get()); 
+        return response()->json(menuModel::inRandomOrder()->where('category', 'minuman')->get()); 
         
     }
     public function create(Request $request){
@@ -53,7 +54,7 @@ class umkmController extends Controller
     //
     public function get(){
         try{
-            $data = umkmModel::all()->random();
+            $data = umkmModel::all();
             return response()->json($data, 200);
         }catch(\Exception $e){
             return response()->json([
@@ -62,9 +63,9 @@ class umkmController extends Controller
         }
     }
 
-    public function getById($id){
+    public function getById($id){ 
         try{
-            $data = umkmModel::find($id)->with("menu")->first();
+            $data = umkmModel::with('menu')->find($id);
             
             if(!$data){
                 return response()->json(["message" => "UMKM not found"], 404);
@@ -132,7 +133,7 @@ class umkmController extends Controller
 
     public function menuUmkm($id){
         try{
-            return response()->json(umkmModel::find($id)->with("menu"),200); 
+            return response()->json(umkmModel::with('menu')->find($id),200); 
         }catch(\Exception $e){
             return response()->json([
                 'message' => 'Internal Server Error: ' . $e->getMessage() ,

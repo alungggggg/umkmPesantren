@@ -17,4 +17,9 @@ class menuModel extends Model
         'category',
         'harga',
     ];
+
+    public function umkm()
+    {
+        return $this->belongsTo(umkmModel::class, 'umkm_id', 'id');
+    }
 }
