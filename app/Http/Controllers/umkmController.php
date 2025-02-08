@@ -11,15 +11,15 @@ class umkmController extends Controller
 {
 
     public function getAllMakanan(){
-        return response()->json(menuModel::inRandomOrder()->where('category', 'makanan')->get()); 
+        return response()->json(umkmModel::inRandomOrder()->where('category', 'makanan')->get()); 
     }
 
     public function getAllJasa(){
-        return response()->json(menuModel::inRandomOrder()->where('category', 'jasa')->get()); 
+        return response()->json(umkmModel::inRandomOrder()->where('category', 'jasa')->get()); 
     }
     
     public function getAllMinuman(){
-        return response()->json(menuModel::inRandomOrder()->where('category', 'minuman')->get()); 
+        return response()->json(umkmModel::inRandomOrder()->where('category', 'minuman')->get()); 
         
     }
     public function create(Request $request){
